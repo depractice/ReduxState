@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import CreateCard from './CreateCard';
-import Card from './Card';
+import CreateCardContainer from '../containers/CreateCardContainer';
+import CardContainer from '../containers/CardContainer';
 
 class List extends Component {
   state = { showOptions: false };
@@ -19,9 +19,10 @@ class List extends Component {
     return (
       <article className="List">
         <h2>{list.title}</h2>
-        {showOptions && (
+        <CreateCardContainer listId={list.id} />
+        {/* {showOptions && (
           <div className="List-options">
-            <CreateCard onCreateCard={this.createCard} />
+            <CreateCardContainer listId={list.id} />
             <button className="List-remove danger" onClick={this.removeList}>
               Remove List
             </button>
@@ -32,10 +33,12 @@ class List extends Component {
           onClick={this.toggleOptions}
         >
           Toggle Options
-        </button>
+        </button> */}
         <div>
           {/* Iterate over cards here. */}
-          <Card />
+          {list.cards.map(cardId => (
+            <CardContainer key={cardId} cardId={cardId} />
+          ))}
         </div>
       </article>
     );
